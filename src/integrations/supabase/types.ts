@@ -14,16 +14,135 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      job_notifications: {
+        Row: {
+          admit_card_date: string | null
+          application_end: string | null
+          application_start: string | null
+          category: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          exam_date: string | null
+          id: string
+          job_id: string | null
+          last_verified: string | null
+          notification_type: string
+          official_apply_url: string | null
+          official_notification_url: string | null
+          organization: string
+          published: boolean
+          qualification: string | null
+          result_date: string | null
+          title: string
+          updated_at: string
+          vacancies: string | null
+        }
+        Insert: {
+          admit_card_date?: string | null
+          application_end?: string | null
+          application_start?: string | null
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          exam_date?: string | null
+          id?: string
+          job_id?: string | null
+          last_verified?: string | null
+          notification_type?: string
+          official_apply_url?: string | null
+          official_notification_url?: string | null
+          organization: string
+          published?: boolean
+          qualification?: string | null
+          result_date?: string | null
+          title: string
+          updated_at?: string
+          vacancies?: string | null
+        }
+        Update: {
+          admit_card_date?: string | null
+          application_end?: string | null
+          application_start?: string | null
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          exam_date?: string | null
+          id?: string
+          job_id?: string | null
+          last_verified?: string | null
+          notification_type?: string
+          official_apply_url?: string | null
+          official_notification_url?: string | null
+          organization?: string
+          published?: boolean
+          qualification?: string | null
+          result_date?: string | null
+          title?: string
+          updated_at?: string
+          vacancies?: string | null
+        }
+        Relationships: []
+      }
+      saved_jobs: {
+        Row: {
+          created_at: string
+          id: string
+          job_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          job_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          job_id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +269,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
