@@ -5,6 +5,8 @@ import { railwayJobs } from "./catalog/railways";
 import { defenceJobs } from "./catalog/defence";
 import { teachingJobs } from "./catalog/teaching";
 import { scienceJobs } from "./catalog/science";
+import { policeJobs } from "./catalog/police";
+import { itJobs } from "./catalog/it";
 import type { JobRecord } from "./types";
 
 export const ALL_JOBS: JobRecord[] = [
@@ -15,6 +17,8 @@ export const ALL_JOBS: JobRecord[] = [
   ...defenceJobs,
   ...teachingJobs,
   ...scienceJobs,
+  ...policeJobs,
+  ...itJobs,
 ];
 
 export function getJobById(id: string): JobRecord | undefined {
