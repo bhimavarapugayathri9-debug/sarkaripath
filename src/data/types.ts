@@ -106,6 +106,9 @@ export const STATES = [
   "Madhya Pradesh",
   "Punjab",
   "Haryana",
+  "Jharkhand",
+  "Chhattisgarh",
+  "Assam",
   "Other States",
 ] as const;
 
