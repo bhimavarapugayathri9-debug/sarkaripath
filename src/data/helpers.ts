@@ -85,15 +85,17 @@ const DEFAULT_FEE =
 
 export function job(input: JobInput): JobRecord {
   const streams = input.eligibleStreams;
+  const categories = deriveCategories(input);
   const tags = new Set<string>([
     ...(input.tags ?? []),
-    input.category,
+    ...categories,
     ...input.sectors,
     ...streams,
     input.minimumQualification,
   ]);
 
   return {
+    categories,
     id: input.id,
     title: input.title,
     shortTitle: input.shortTitle ?? input.title,
