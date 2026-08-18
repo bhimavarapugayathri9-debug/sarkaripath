@@ -1,4 +1,12 @@
-import type { JobRecord, JobType, QualificationLevel, Sector, StateName, Stream } from "./types";
+import type {
+  JobCategory,
+  JobRecord,
+  JobType,
+  QualificationLevel,
+  Sector,
+  StateName,
+  Stream,
+} from "./types";
 
 type Required_ = "id" | "title" | "organization" | "category" | "description" | "qualification";
 
@@ -8,6 +16,63 @@ export type JobInput = Pick<JobRecord, Required_> &
     minimumQualification: QualificationLevel;
     sectors: Sector[];
   };
+
+const SECTOR_TO_CATEGORY: Partial<Record<Sector, JobCategory>> = {
+  Banking: "Banking",
+  Railway: "Railways",
+  Defence: "Defence",
+  IT: "IT",
+  Engineering: "Engineering",
+  Teaching: "Teaching",
+  "Science & Technology": "Science & Technology",
+  Healthcare: "Healthcare",
+  Police: "Police",
+  PSU: "PSU",
+  "Judiciary & Law": "Judiciary & Law",
+  Agriculture: "Agriculture",
+  "State Government": "State Government",
+  "Central Government": "Central Government",
+};
+
+const ENGINEERING_STREAMS: Stream[] = [
+  "CSE",
+  "IT",
+  "ECE",
+  "EEE",
+  "Mechanical",
+  "Civil",
+  "Chemical",
+  "Biotechnology",
+  "Any Engineering",
+];
+
+/**
+ * Categories are derived, never hard-coded counts: primary category, sectors,
+ * eligible streams and minimum qualification all contribute.
+ */
+function deriveCategories(input: JobInput): JobCategory[] {
+  const set = new Set<JobCategory>([input.category, ...(input.categories ?? [])]);
+
+  for (const s of input.sectors) {
+    const mapped = SECTOR_TO_CATEGORY[s];
+    if (mapped) set.add(mapped);
+  }
+
+  const streams = input.eligibleStreams;
+  if (streams.some((s) => ENGINEERING_STREAMS.includes(s))) set.add("Engineering");
+  if (streams.includes("CSE") || streams.includes("IT")) set.add("IT");
+
+  const q = input.minimumQualification;
+  if (q === "10th" || q === "12th") set.add("10th/12th Pass Jobs");
+  if (q === "Diploma") set.add("Diploma Jobs");
+  if (streams.includes("Diploma")) set.add("Diploma Jobs");
+  if (streams.includes("10th") || streams.includes("12th")) set.add("10th/12th Pass Jobs");
+  if (streams.includes("Law")) set.add("Judiciary & Law");
+  if (streams.includes("Medical") || streams.includes("Pharmacy")) set.add("Healthcare");
+  if (streams.includes("Agriculture")) set.add("Agriculture");
+
+  return [...set];
+}
 
 const DEFAULT_AGE_RELAXATION =
   "Age relaxation is available for SC/ST, OBC, PwBD, ex-servicemen and other reserved categories as per Government of India rules. Exact relaxation is stated in the official notification.";
@@ -20,15 +85,17 @@ const DEFAULT_FEE =
 
 export function job(input: JobInput): JobRecord {
   const streams = input.eligibleStreams;
+  const categories = deriveCategories(input);
   const tags = new Set<string>([
     ...(input.tags ?? []),
-    input.category,
+    ...categories,
     ...input.sectors,
     ...streams,
     input.minimumQualification,
   ]);
 
   return {
+    categories,
     id: input.id,
     title: input.title,
     shortTitle: input.shortTitle ?? input.title,

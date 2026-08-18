@@ -32,7 +32,7 @@ function Home() {
   const jobs = useMemo(() => {
     const term = q.trim().toLowerCase();
     return ALL_JOBS.filter((j) => {
-      if (selectedCategory && j.category !== selectedCategory) return false;
+      if (selectedCategory && !j.categories.includes(selectedCategory as never)) return false;
       if (qual !== "All" && j.minimumQualification !== qual) return false;
       if (!term) return true;
       return (
@@ -45,7 +45,7 @@ function Home() {
 
   const categoryCounts = useMemo(() => {
     const map = new Map<string, number>();
-    for (const j of ALL_JOBS) map.set(j.category, (map.get(j.category) ?? 0) + 1);
+    for (const j of ALL_JOBS) for (const c of j.categories) map.set(c, (map.get(c) ?? 0) + 1);
     return map;
   }, []);
 

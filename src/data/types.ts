@@ -51,13 +51,19 @@ export const CATEGORIES = [
   "Banking",
   "Railways",
   "Defence",
-  "Teaching",
   "Police",
-  "Science & Technology",
+  "Teaching",
   "Engineering",
   "IT",
+  "Science & Technology",
+  "Healthcare",
   "State Government",
   "Central Government",
+  "PSU",
+  "Judiciary & Law",
+  "Agriculture",
+  "Diploma Jobs",
+  "10th/12th Pass Jobs",
 ] as const;
 
 export type JobCategory = (typeof CATEGORIES)[number];
@@ -67,10 +73,15 @@ export const SECTORS = [
   "Railway",
   "Defence",
   "IT",
+  "Engineering",
   "Teaching",
   "Administration",
   "Science & Technology",
+  "Healthcare",
   "Police",
+  "PSU",
+  "Judiciary & Law",
+  "Agriculture",
   "State Government",
   "Central Government",
 ] as const;
@@ -95,6 +106,9 @@ export const STATES = [
   "Madhya Pradesh",
   "Punjab",
   "Haryana",
+  "Jharkhand",
+  "Chhattisgarh",
+  "Assam",
   "Other States",
 ] as const;
 
@@ -125,6 +139,8 @@ export interface JobRecord {
   organization: string;
   department: string;
   category: JobCategory;
+  /** All categories this record belongs to (primary + derived + explicit extras). */
+  categories: JobCategory[];
   subCategory: string;
   jobType: JobType;
   description: string;
