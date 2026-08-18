@@ -51,13 +51,19 @@ export const CATEGORIES = [
   "Banking",
   "Railways",
   "Defence",
-  "Teaching",
   "Police",
-  "Science & Technology",
+  "Teaching",
   "Engineering",
   "IT",
+  "Science & Technology",
+  "Healthcare",
   "State Government",
   "Central Government",
+  "PSU",
+  "Judiciary & Law",
+  "Agriculture",
+  "Diploma Jobs",
+  "10th/12th Pass Jobs",
 ] as const;
 
 export type JobCategory = (typeof CATEGORIES)[number];
