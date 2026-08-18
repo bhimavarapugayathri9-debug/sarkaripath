@@ -139,6 +139,8 @@ export interface JobRecord {
   organization: string;
   department: string;
   category: JobCategory;
+  /** All categories this record belongs to (primary + derived + explicit extras). */
+  categories: JobCategory[];
   subCategory: string;
   jobType: JobType;
   description: string;
