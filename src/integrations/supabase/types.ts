@@ -14,96 +14,171 @@ export type Database = {
   }
   public: {
     Tables: {
-      job_notifications: {
+      ai_requests: {
         Row: {
-          admit_card_date: string | null
-          application_end: string | null
-          application_start: string | null
-          category: string
           created_at: string
-          created_by: string | null
-          description: string | null
-          exam_date: string | null
           id: string
-          job_id: string | null
-          last_verified: string | null
-          notification_type: string
-          official_apply_url: string | null
-          official_notification_url: string | null
-          organization: string
-          published: boolean
-          qualification: string | null
-          result_date: string | null
-          title: string
-          updated_at: string
-          vacancies: string | null
+          intent: string | null
+          prompt: string
+          result: Json
+          user_id: string
         }
         Insert: {
-          admit_card_date?: string | null
-          application_end?: string | null
-          application_start?: string | null
-          category?: string
           created_at?: string
-          created_by?: string | null
-          description?: string | null
-          exam_date?: string | null
           id?: string
-          job_id?: string | null
-          last_verified?: string | null
-          notification_type?: string
-          official_apply_url?: string | null
-          official_notification_url?: string | null
-          organization: string
-          published?: boolean
-          qualification?: string | null
-          result_date?: string | null
-          title: string
-          updated_at?: string
-          vacancies?: string | null
+          intent?: string | null
+          prompt: string
+          result?: Json
+          user_id: string
         }
         Update: {
-          admit_card_date?: string | null
-          application_end?: string | null
-          application_start?: string | null
-          category?: string
           created_at?: string
-          created_by?: string | null
-          description?: string | null
-          exam_date?: string | null
           id?: string
-          job_id?: string | null
-          last_verified?: string | null
-          notification_type?: string
-          official_apply_url?: string | null
-          official_notification_url?: string | null
-          organization?: string
-          published?: boolean
-          qualification?: string | null
-          result_date?: string | null
-          title?: string
-          updated_at?: string
-          vacancies?: string | null
+          intent?: string | null
+          prompt?: string
+          result?: Json
+          user_id?: string
         }
         Relationships: []
       }
-      saved_jobs: {
+      applications: {
         Row: {
+          bundle_id: string | null
           created_at: string
+          department: string
+          department_api: string | null
+          document_ids: string[]
           id: string
-          job_id: string
+          reference_no: string | null
+          service_key: string
+          service_name: string
+          status: string
+          submitted_data: Json
+          timeline: Json
+          updated_at: string
           user_id: string
         }
         Insert: {
+          bundle_id?: string | null
           created_at?: string
+          department: string
+          department_api?: string | null
+          document_ids?: string[]
           id?: string
-          job_id: string
+          reference_no?: string | null
+          service_key: string
+          service_name: string
+          status?: string
+          submitted_data?: Json
+          timeline?: Json
+          updated_at?: string
           user_id: string
         }
         Update: {
+          bundle_id?: string | null
           created_at?: string
+          department?: string
+          department_api?: string | null
+          document_ids?: string[]
           id?: string
-          job_id?: string
+          reference_no?: string | null
+          service_key?: string
+          service_name?: string
+          status?: string
+          submitted_data?: Json
+          timeline?: Json
+          updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      documents: {
+        Row: {
+          created_at: string
+          detected_type: string | null
+          detection_confidence: number | null
+          doc_type: string
+          file_name: string
+          id: string
+          mime_type: string | null
+          notes: string | null
+          size_bytes: number | null
+          storage_path: string
+          updated_at: string
+          user_id: string
+          verification_status: string
+        }
+        Insert: {
+          created_at?: string
+          detected_type?: string | null
+          detection_confidence?: number | null
+          doc_type: string
+          file_name: string
+          id?: string
+          mime_type?: string | null
+          notes?: string | null
+          size_bytes?: number | null
+          storage_path: string
+          updated_at?: string
+          user_id: string
+          verification_status?: string
+        }
+        Update: {
+          created_at?: string
+          detected_type?: string | null
+          detection_confidence?: number | null
+          doc_type?: string
+          file_name?: string
+          id?: string
+          mime_type?: string | null
+          notes?: string | null
+          size_bytes?: number | null
+          storage_path?: string
+          updated_at?: string
+          user_id?: string
+          verification_status?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          address_line: string | null
+          city: string | null
+          created_at: string
+          date_of_birth: string | null
+          email: string | null
+          full_name: string | null
+          id: string
+          phone: string | null
+          pincode: string | null
+          state: string | null
+          updated_at: string
+        }
+        Insert: {
+          address_line?: string | null
+          city?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          email?: string | null
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          pincode?: string | null
+          state?: string | null
+          updated_at?: string
+        }
+        Update: {
+          address_line?: string | null
+          city?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          pincode?: string | null
+          state?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
