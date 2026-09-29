@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getJobById } from "@/data/jobs";
 import { DISCLAIMER } from "@/data/types";
+import { getApplicationStatus, statusClass } from "@/data/status";
 
 export const Route = createFileRoute("/job/$id")({
   head: () => ({
@@ -71,6 +72,7 @@ function JobDetail() {
               {job.category}
             </span>
             <span className="text-primary-foreground/70">{job.minimumQualification}</span>
+            <span className={`rounded-full border px-2 py-1 text-[10px] font-semibold ${statusClass(getApplicationStatus(job))}`}>{getApplicationStatus(job)}</span>
           </div>
           <h1 className="mt-4 text-3xl leading-tight font-bold sm:text-4xl">{job.title}</h1>
           <p className="mt-2 text-sm text-primary-foreground/75">{job.organization}</p>
@@ -79,6 +81,7 @@ function JobDetail() {
 
       <main className="mx-auto max-w-4xl px-4 py-10">
         <p className="text-base leading-relaxed">{job.description}</p>
+        {job.lastVerified && <p className="mt-3 text-xs text-muted-foreground">Last verified: {new Date(`${job.lastVerified}T00:00:00`).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}</p>}
 
         <dl className="mt-7 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2">
           {facts.map(([label, value]) => (
@@ -94,7 +97,7 @@ function JobDetail() {
         <Section title="Syllabus" items={job.syllabus} />
 
         <a
-          href={job.officialWebsite}
+          href={job.officialNotificationUrl ?? job.officialWebsite}
           target="_blank"
           rel="noreferrer"
           className="mt-9 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
